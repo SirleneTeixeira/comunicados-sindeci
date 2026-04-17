@@ -509,7 +509,7 @@ let tipoAtivo = 'ambos';
 
 const ENTIDADES = [
   {id:'ita_g', label:'Itabirito — Gêneros Alimentícios (SINDCOMERCIÁRIOS)', cidade:'itabirito', temGen:true,  temLoj:false},
-  {id:'ita_l', label:'Itabirito — Lojas em Geral (SINDCOMERCIÁRIOS)',       cidade:'itabirito', temGen:true,  temLoj:true },
+  {id:'ita_l', label:'Itabirito — Lojas em Geral (SINDCOMERCIÁRIOS)',       cidade:'itabirito', temGen:false, temLoj:true },
   {id:'op_f',  label:'Ouro Preto/Mariana — Fecomércio (Lojas e Peq. Supermercados)', cidade:'op_mariana', temGen:true, temLoj:true},
   {id:'op_s',  label:'Ouro Preto/Mariana — Sindsuper (Grandes Supermercados)', cidade:'op_mariana', temGen:true, temLoj:false},
 ];
@@ -657,11 +657,20 @@ function onEntidadeChange(){
   const tBoth=document.getElementById('tBoth');
   const tGen=document.getElementById('tGen');
   const tLoj=document.getElementById('tLoj');
-  // Always reset display first
+  // Sempre resetar display primeiro
   tBoth.style.display=''; tGen.style.display=''; tLoj.style.display='';
-  if(!ent.temGen){ tBoth.style.display='none'; tGen.style.display='none'; setTipo('lojas',tLoj); }
-  else if(!ent.temLoj){ tBoth.style.display='none'; tLoj.style.display='none'; setTipo('generos',tGen); }
-  else { setTipo('ambos',tBoth); }
+  if(!ent.temGen){
+    // Entidade só tem Lojas (ex: ita_l)
+    tBoth.style.display='none'; tGen.style.display='none';
+    setTipo('lojas',tLoj);
+  } else if(!ent.temLoj){
+    // Entidade só tem Gêneros (ex: ita_g, op_s)
+    tBoth.style.display='none'; tLoj.style.display='none';
+    setTipo('generos',tGen);
+  } else {
+    // Entidade tem ambos (ex: op_f)
+    setTipo('ambos',tBoth);
+  }
 }
 
 function setTipo(t,btn){ tipoAtivo=t; document.querySelectorAll('#gTipoWrap .toggle-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
@@ -755,11 +764,16 @@ function rodapeLoj(c){
 
 function buildGen(c){
   const obsH=c.obs?`<div class="c-obs">📌 ${c.obs}</div>`:'';
-  // Para feriados proibidos, gêneros também não podem trabalhar
   let corpo='';
   if(c.regra==='proibido'){
+    // 01/01, 01/05, 25/12 — proibido absoluto para todos
     corpo=`<div class="c-destaque">🚫 ESTABELECIMENTOS DE GÊNEROS ALIMENTÍCIOS NÃO PODERÃO FUNCIONAR NESTA DATA.<br>É UM DOS 3 FERIADOS PROIBIDOS PELA CCT.</div>
     <div class="c-corpo">NENHUM ESTABELECIMENTO PODE CONVOCAR<br>FUNCIONÁRIOS PARA TRABALHAR EM:<br><br>01 DE JANEIRO · 01 DE MAIO · 25 DE DEZEMBRO</div>`;
+  } else if(c.regra==='generos_only'){
+    // Somente gêneros podem — destacar isso no início
+    corpo=`<div class="c-pode">✅ GÊNEROS ALIMENTÍCIOS ESTÃO AUTORIZADOS<br>A FUNCIONAR NESTE FERIADO.</div>
+    <div class="c-intro">🛒 O funcionário que trabalhar no feriado tem direito a:</div>
+    ${listaDir(c.ac, c.eId)}`;
   } else {
     corpo=`<div class="c-intro">🛒 Para os estabelecimentos de gêneros alimentícios que<br>funcionarem no feriado, o funcionário tem direito a:</div>
     ${listaDir(c.ac, c.eId)}`;
@@ -950,7 +964,10 @@ function buildInsta(tipo, c) {
   if (tipo === 'Gen') {
     if (c.regra === 'proibido') {
       msgClass = 'red';
-      msgTxt = '🚫 PROIBIDO FUNCIONAR<br>NESTA DATA';
+      msgTxt = '🚫 PROIBIDO FUNCIONAR<br>NESTA DATA<br>(01/01 · 01/05 · 25/12)';
+    } else if (c.regra === 'generos_only') {
+      msgClass = 'green';
+      msgTxt = '✅ GÊNEROS ALIMENTÍCIOS<br>ESTÃO AUTORIZADOS<br>A FUNCIONAR NESTA DATA';
     } else {
       msgClass = 'green';
       msgTxt = '🛒 GÊNEROS ALIMENTÍCIOS<br>PODEM FUNCIONAR NESTA DATA<br>COM AS REGRAS DA CCT';
