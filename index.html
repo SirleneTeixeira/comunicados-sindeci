@@ -186,6 +186,30 @@ html,body{min-height:100%;font-family:'Montserrat',sans-serif;background:var(--n
 .toast-restore{position:fixed;bottom:32px;right:32px;background:#162d52;border:1px solid rgba(200,168,75,.35);color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;padding:12px 18px;border-radius:10px;box-shadow:0 6px 28px rgba(0,0,0,.4);z-index:9998;display:flex;align-items:center;gap:12px;transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);}
 .toast-restore.show{transform:translateY(0);opacity:1;}
 .restore-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:6px;padding:6px 14px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
+
+/* LINKS PAGE */
+.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px;}
+.link-card{background:var(--navy3);border:1px solid rgba(200,168,75,.15);border-radius:12px;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:pointer;text-decoration:none;display:block;}
+.link-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3);border-color:rgba(200,168,75,.4);}
+.link-card-accent{height:4px;width:100%;}
+.link-card-body{padding:18px 20px;}
+.link-card-icon{font-size:32px;margin-bottom:10px;}
+.link-card-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:var(--white);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
+.link-card-desc{font-size:11.5px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:12px;}
+.link-card-url{font-size:10.5px;font-weight:700;color:var(--gold2);letter-spacing:.5px;display:flex;align-items:center;gap:5px;}
+.link-cat-title{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:7px;border-bottom:1px solid rgba(200,168,75,.2);}
+.denuncia-card{background:linear-gradient(135deg,rgba(231,76,60,.15),rgba(192,57,43,.1));border:1px solid rgba(231,76,60,.3);border-radius:12px;padding:22px 26px;display:flex;align-items:center;gap:20px;cursor:pointer;transition:all .2s;text-decoration:none;display:flex;}
+.denuncia-card:hover{background:linear-gradient(135deg,rgba(231,76,60,.25),rgba(192,57,43,.2));transform:translateY(-2px);}
+.denuncia-icon{font-size:48px;flex-shrink:0;}
+.denuncia-text h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:#e87070;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+.denuncia-text p{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.55;}
+.denuncia-text .link-card-url{margin-top:8px;}
+
+/* BLOCO CCT NO COMUNICADO */
+.c-cct-box{width:100%;background:rgba(255,255,255,.18);border:1px solid rgba(10,61,110,.2);border-radius:8px;padding:10px 14px;margin-bottom:14px;}
+.c-cct-box-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;color:#0a3d6e;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.c-cct-box-item{font-size:11px;font-weight:600;color:#1a2a4e;display:flex;align-items:center;gap:6px;margin-bottom:3px;line-height:1.4;}
+.c-cct-box-item:last-child{margin-bottom:0;}
 </style>
 </head>
 <body>
@@ -203,6 +227,7 @@ html,body{min-height:100%;font-family:'Montserrat',sans-serif;background:var(--n
   <button class="nav-btn active" onclick="showPage('feriados',this)">📅 Feriados</button>
   <button class="nav-btn" onclick="showPage('acordos',this)">📜 Acordos Coletivos</button>
   <button class="nav-btn" onclick="showPage('gerar',this)">⚡ Gerar Comunicado</button>
+  <button class="nav-btn" onclick="showPage('links',this)">🔗 Links e Recursos</button>
 </div>
 
 <!-- ═══ PAGE FERIADOS ═══ -->
@@ -494,6 +519,142 @@ html,body{min-height:100%;font-family:'Montserrat',sans-serif;background:var(--n
       </div>
     </div>
   </div>
+</div>
+<!-- ═══ PAGE LINKS ═══ -->
+<div class="page" id="page-links">
+
+  <!-- DENÚNCIA EM DESTAQUE -->
+  <div class="sec" style="margin-bottom:20px;">
+    <div class="sec-title">🚨 Canais de Denúncia</div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+
+      <a class="denuncia-card" href="https://www.gov.br/pt-br/servicos/realizar-denuncia-trabalhista" target="_blank">
+        <div class="denuncia-icon">🏛️</div>
+        <div class="denuncia-text">
+          <h3>Denúncia Trabalhista — Governo Federal</h3>
+          <p>Canal oficial do Governo Federal para registrar denúncias de irregularidades trabalhistas. Seus dados são protegidos.</p>
+          <div class="link-card-url">🔗 gov.br/pt-br/servicos/realizar-denuncia-trabalhista</div>
+        </div>
+      </a>
+
+      <a class="denuncia-card" href="https://mpt.mp.br/" target="_blank">
+        <div class="denuncia-icon">⚖️</div>
+        <div class="denuncia-text">
+          <h3>Ministério Público do Trabalho</h3>
+          <p>Órgão responsável pela defesa da ordem jurídica trabalhista. Recebe denúncias de irregularidades coletivas e individuais.</p>
+          <div class="link-card-url">🔗 mpt.mp.br</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- SINDICATO E FEDERAÇÕES -->
+  <div class="sec" style="margin-bottom:20px;">
+    <div class="link-cat-title">🤝 Sindicato e Federações</div>
+    <div class="links-grid">
+
+      <a class="link-card" href="https://www.sindeci.com.br" target="_blank">
+        <div class="link-card-accent" style="background:linear-gradient(90deg,#1a6aa8,#3a9ed5);"></div>
+        <div class="link-card-body">
+          <div class="link-card-icon">🏢</div>
+          <div class="link-card-title">SINDCOMERCIÁRIOS</div>
+          <div class="link-card-desc">Site oficial do Sindicato dos Empregados no Comércio de Itabirito e Região. Convenções, emissão de guias, portal do associado.</div>
+          <div class="link-card-url">🔗 sindeci.com.br</div>
+        </div>
+      </a>
+
+      <a class="link-card" href="https://fecomerciomg.org.br/" target="_blank">
+        <div class="link-card-accent" style="background:linear-gradient(90deg,#c0392b,#e74c3c);"></div>
+        <div class="link-card-body">
+          <div class="link-card-icon">🏛️</div>
+          <div class="link-card-title">FECOMERCIÁRIOS-MG</div>
+          <div class="link-card-desc">Federação dos Empregados no Comércio e Congêneres do Estado de Minas Gerais. Entidade máxima estadual dos comerciários.</div>
+          <div class="link-card-url">🔗 fecomerciomg.org.br</div>
+        </div>
+      </a>
+
+      <a class="link-card" href="https://www.fecomerciarios.com.br" target="_blank">
+        <div class="link-card-accent" style="background:linear-gradient(90deg,#e67e22,#f39c12);"></div>
+        <div class="link-card-body">
+          <div class="link-card-icon">🏗️</div>
+          <div class="link-card-title">FECOMÉRCIO</div>
+          <div class="link-card-desc">Portal da Federação do Comércio — entidade patronal. Informações sobre convenções coletivas e acordos.</div>
+          <div class="link-card-url">🔗 fecomerciarios.com.br</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ÓRGÃOS GOVERNAMENTAIS -->
+  <div class="sec">
+    <div class="link-cat-title">🏛️ Órgãos Governamentais</div>
+    <div class="links-grid">
+
+      <a class="link-card" href="https://mpt.mp.br/" target="_blank">
+        <div class="link-card-accent" style="background:linear-gradient(90deg,#27ae60,#2ecc71);"></div>
+        <div class="link-card-body">
+          <div class="link-card-icon">⚖️</div>
+          <div class="link-card-title">Ministério Público do Trabalho</div>
+          <div class="link-card-desc">MPT — defesa da ordem jurídica trabalhista, combate ao trabalho escravo, infantil e outras violações.</div>
+          <div class="link-card-url">🔗 mpt.mp.br</div>
+        </div>
+      </a>
+
+      <a class="link-card" href="https://www.gov.br/trabalho-e-emprego" target="_blank">
+        <div class="link-card-accent" style="background:linear-gradient(90deg,#2980b9,#3498db);"></div>
+        <div class="link-card-body">
+          <div class="link-card-icon">📋</div>
+          <div class="link-card-title">Ministério do Trabalho e Emprego</div>
+          <div class="link-card-desc">Portal oficial do MTE. Consulta de CTPS digital, seguro-desemprego, FGTS, fiscalização trabalhista.</div>
+          <div class="link-card-url">🔗 gov.br/trabalho-e-emprego</div>
+        </div>
+      </a>
+
+      <a class="link-card" href="https://www.tst.jus.br/" target="_blank">
+        <div class="link-card-accent" style="background:linear-gradient(90deg,#8e44ad,#9b59b6);"></div>
+        <div class="link-card-body">
+          <div class="link-card-icon">🏦</div>
+          <div class="link-card-title">Tribunal Superior do Trabalho</div>
+          <div class="link-card-desc">TST — jurisprudência trabalhista, súmulas, consulta processual. Principal fonte do direito do trabalho no Brasil.</div>
+          <div class="link-card-url">🔗 tst.jus.br</div>
+        </div>
+      </a>
+
+      <a class="link-card" href="https://www.trt3.jus.br/" target="_blank">
+        <div class="link-card-accent" style="background:linear-gradient(90deg,#16a085,#1abc9c);"></div>
+        <div class="link-card-body">
+          <div class="link-card-icon">⚖️</div>
+          <div class="link-card-title">TRT 3ª Região — Minas Gerais</div>
+          <div class="link-card-desc">Tribunal Regional do Trabalho de MG. Consulta processual, jurisprudência regional e pauta de audiências.</div>
+          <div class="link-card-url">🔗 trt3.jus.br</div>
+        </div>
+      </a>
+
+      <a class="link-card" href="https://www.gov.br/esocial" target="_blank">
+        <div class="link-card-accent" style="background:linear-gradient(90deg,#c0392b,#e74c3c);"></div>
+        <div class="link-card-body">
+          <div class="link-card-icon">💻</div>
+          <div class="link-card-title">eSocial</div>
+          <div class="link-card-desc">Sistema de escrituração digital das obrigações fiscais, previdenciárias e trabalhistas.</div>
+          <div class="link-card-url">🔗 gov.br/esocial</div>
+        </div>
+      </a>
+
+      <a class="link-card" href="https://consultafgts.caixa.gov.br/" target="_blank">
+        <div class="link-card-accent" style="background:linear-gradient(90deg,#e67e22,#f39c12);"></div>
+        <div class="link-card-body">
+          <div class="link-card-icon">💰</div>
+          <div class="link-card-title">Consulta FGTS — Caixa</div>
+          <div class="link-card-desc">Consulte o saldo do FGTS, extrato de depósitos e verifique se o empregador está recolhendo corretamente.</div>
+          <div class="link-card-url">🔗 consultafgts.caixa.gov.br</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -835,13 +996,17 @@ function rodapeGen(c){
 function rodapeLoj(c){
   const partesStr = c.ac.partes || '';
   return `
-    <div class="c-rod-logo">
+    <div class="c-rod-logo" style="margin-bottom:8px;">
       <img src="${LOGO_SRC}" alt="SINDCOMERCIÁRIOS" style="height:44px;object-fit:contain;background:#fff;border-radius:8px;padding:4px 10px;">
       <div style="display:flex;flex-direction:column;align-items:flex-start;gap:3px;">
         ${partesStr ? `<div style="font-size:12px;font-weight:900;color:#0a3d6e;letter-spacing:.8px;text-transform:uppercase;">${partesStr}</div>` : ''}
         <div style="font-size:9.5px;font-weight:700;color:#1a3a6e;opacity:.75;letter-spacing:.3px;">${c.cct}</div>
-        <div style="font-size:9.5px;font-weight:700;color:#0a3d6e;opacity:.7;">${(c.ac.site||'www.sindeci.com.br').toUpperCase()}</div>
       </div>
+    </div>
+    <div class="c-rod" style="margin-top:0;">
+      <span>📱 DENÚNCIAS: ${c.ac.tel||'—'}</span>
+      <span style="color:#0a3d6e;margin:0 4px;font-size:13px;">|</span>
+      <span>🌐 ${c.ac.site||'www.sindeci.com.br'}</span>
     </div>`;
 }
 
@@ -921,7 +1086,7 @@ function buildLoj(c){
     <div class="c-cta">COMERCIÁRIO, FAÇA VALER OS SEUS DIREITOS!<br>EM CASO DE ABUSO, DENUNCIE<br>NO SITE DO SINDICATO.</div>`;
   }
 
-  const partesTagLoj = c.ac.partes ? `<div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;color:#0a3d6e;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;background:rgba(255,255,255,.4);padding:4px 18px;border-radius:20px;display:inline-block;">${c.ac.partes}</div>` : '';
+  const partesTagLoj = c.ac.partes ? `<div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;color:#0a3d6e;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;background:rgba(255,255,255,.5);border:1.5px solid rgba(10,61,110,.25);padding:5px 20px;border-radius:20px;display:inline-block;">${c.ac.partes}</div>` : '';
   document.getElementById('cardLoj').innerHTML = `
     <div class="mega-header">
       <div class="mega-icon-wrap"><div class="mega-icon">📢</div></div>
@@ -932,6 +1097,12 @@ function buildLoj(c){
     <hr class="c-hr">
     ${corpo}
     ${obsH}
+    <div class="c-cct-box">
+      <div class="c-cct-box-title">📜 Convenções Coletivas de Trabalho</div>
+      <div class="c-cct-box-item">➤ <strong>Itabirito</strong> — SINDECI x SINCOVITA</div>
+      <div class="c-cct-box-item">➤ <strong>Ouro Preto e Mariana</strong> — SINDECI x FECOMÉRCIO</div>
+      <div class="c-cct-box-item">➤ <strong>Ouro Preto e Mariana</strong> — SINDECI x SINDSUPER</div>
+    </div>
     ${rodapeLoj(c)}`;
 }
 
