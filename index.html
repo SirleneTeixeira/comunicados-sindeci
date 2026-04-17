@@ -159,10 +159,18 @@ html,body{min-height:100%;font-family:'Montserrat',sans-serif;background:var(--n
 
   <div class="sec">
     <div class="sec-title">📌 Regra Geral da CCT</div>
+    <div class="alert a-gold" style="margin-bottom:14px;font-size:12.5px;line-height:1.7;">
+      ⚖️ <span><strong>REGRA GERAL DA CCT:</strong><br>
+      ➤ <strong>Gêneros Alimentícios</strong> podem trabalhar em todos os feriados (exceto 01/01, 01/05 e 25/12), seguindo as regras da CCT.<br>
+      ➤ <strong>Lojas em Geral</strong> — em regra, <strong>NÃO PODEM</strong> exigir trabalho do funcionário em feriados. Somente funcionam mediante <strong>acordo prévio assinado</strong> com o sindicato.<br>
+      ➤ <strong>Exceções permitidas:</strong> 20/11 em OP/Mariana (comércio livre) e 08/12 em Itabirito (somente com acordo).
+      </span>
+    </div>
     <div class="legend">
-      <div class="legend-item"><span class="badge b-green">✅ Pode trabalhar</span> Padrão — comércio e gêneros podem funcionar com as regras da CCT</div>
-      <div class="legend-item"><span class="badge b-red">🚫 Proibido</span> Somente 3 datas: 01/01 · 01/05 · 25/12</div>
-      <div class="legend-item"><span class="badge b-orange">📋 Se houver acordo</span> 08/12 Itabirito — lojas só com acordo assinado; gêneros sempre podem</div>
+      <div class="legend-item"><span class="badge b-green">✅ Gêneros podem</span> Padrão — gêneros alimentícios funcionam com as regras da CCT</div>
+      <div class="legend-item"><span class="badge b-red">🚫 Proibido a todos</span> 01/01 · 01/05 · 25/12 — ninguém pode trabalhar</div>
+      <div class="legend-item"><span class="badge b-orange">📋 Lojas c/ acordo</span> Lojas só abrem com acordo assinado com o sindicato</div>
+      <div class="legend-item"><span class="badge b-blue">🏛️ Comércio livre</span> 20/11 OP/Mariana — todo comércio pode funcionar</div>
     </div>
   </div>
 
@@ -447,7 +455,7 @@ let tipoAtivo = 'ambos';
 
 const ENTIDADES = [
   {id:'ita_g', label:'Itabirito — Gêneros Alimentícios (SINDCOMERCIÁRIOS)', cidade:'itabirito', temGen:true,  temLoj:false},
-  {id:'ita_l', label:'Itabirito — Lojas em Geral (SINDCOMERCIÁRIOS)',       cidade:'itabirito', temGen:false, temLoj:true },
+  {id:'ita_l', label:'Itabirito — Lojas em Geral (SINDCOMERCIÁRIOS)',       cidade:'itabirito', temGen:true,  temLoj:true },
   {id:'op_f',  label:'Ouro Preto/Mariana — Fecomércio (Lojas e Peq. Supermercados)', cidade:'op_mariana', temGen:true, temLoj:true},
   {id:'op_s',  label:'Ouro Preto/Mariana — Sindsuper (Grandes Supermercados)', cidade:'op_mariana', temGen:true, temLoj:false},
 ];
@@ -513,7 +521,10 @@ function renderTbl(){
       <td><span class="badge ${aC[f.abrangencia]||'b-gold'}">${aL[f.abrangencia]||f.abrangencia}</span></td>
       <td><span class="badge ${rC[f.regra]||'b-gray'}">${rL[f.regra]||f.regra}</span></td>
       <td style="font-size:11px;color:rgba(255,255,255,.4);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${f.obs}">${f.obs||'—'}</td>
-      <td><button class="btn btn-red btn-sm" onclick="removeFer(${i})">✕</button></td>
+      <td style="display:flex;gap:4px;">
+        <button class="btn btn-sm" style="background:rgba(200,168,75,.15);border:1px solid rgba(200,168,75,.3);color:var(--gold2);" onclick="editarRegra(${i})">✏️ Regra</button>
+        <button class="btn btn-red btn-sm" onclick="removeFer(${i})">✕</button>
+      </td>
     </tr>`).join('');
 }
 
@@ -591,9 +602,11 @@ function onEntidadeChange(){
   const tBoth=document.getElementById('tBoth');
   const tGen=document.getElementById('tGen');
   const tLoj=document.getElementById('tLoj');
+  // Always reset display first
+  tBoth.style.display=''; tGen.style.display=''; tLoj.style.display='';
   if(!ent.temGen){ tBoth.style.display='none'; tGen.style.display='none'; setTipo('lojas',tLoj); }
   else if(!ent.temLoj){ tBoth.style.display='none'; tLoj.style.display='none'; setTipo('generos',tGen); }
-  else { tBoth.style.display=''; tGen.style.display=''; tLoj.style.display=''; setTipo('ambos',tBoth); }
+  else { setTipo('ambos',tBoth); }
 }
 
 function setTipo(t,btn){ tipoAtivo=t; document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
@@ -674,20 +687,25 @@ function buildGen(c){
 
 function buildLoj(c){
   const obsH=c.obs?`<div class="c-obs">📌 ${c.obs}</div>`:'';
+  // For lojas entity (ita_l), when regra=permitido, it means they CAN work WITH an agreement
+  // The default for lojas is PROIBIDO unless explicitly permitido or comercio_op
+  const lojasPodemTrabalhar = c.regra==='permitido'||c.regra==='comercio_op';
+  const lojasComAcordo = c.regra==='acordo_lojas';
+  const lojasProibidas = c.regra==='proibido';
   let corpo='';
 
-  if(c.regra==='proibido'){
+  if(lojasProibidas){
     // 01/01, 01/05, 25/12 — proibido absoluto
     corpo=`<div class="c-destaque">🚫 É PROIBIDO CONVOCAR FUNCIONÁRIOS PARA TRABALHAR NESTE DIA.<br>ESTE É UM DOS 3 FERIADOS ABSOLUTAMENTE PROIBIDOS PELA CCT.</div>
     <div class="c-corpo">NENHUM ESTABELECIMENTO PODE FUNCIONAR EM:<br><br>01 DE JANEIRO · 01 DE MAIO · 25 DE DEZEMBRO</div>
     <hr class="c-hr2">
     <div class="c-cta">COMERCIÁRIO, FAÇA VALER OS SEUS DIREITOS!<br>EM CASO DE ABUSO, DENUNCIE NO SITE DO SINDICATO.</div>`;
-  } else if(c.regra==='permitido'||c.regra==='comercio_op'){
+  } else if(lojasPodemTrabalhar){
     // pode trabalhar com regras
     corpo=`<div class="c-pode">✅ AS LOJAS PODERÃO FUNCIONAR NESTA DATA,<br>SEGUINDO AS REGRAS DA CCT.</div>
     <div class="c-intro">🏪 O funcionário que trabalhar no feriado tem direito a:</div>
     ${listaDir(c.ac, c.eId)}`;
-  } else if(c.regra==='acordo_lojas'){
+  } else if(lojasComAcordo){
     // 08/12 Itabirito — só com acordo
     corpo=`<div class="c-acordo">📋 AS LOJAS SOMENTE PODERÃO FUNCIONAR NESTA DATA MEDIANTE ACORDO PRÉVIO, FORMAL E ASSINADO COM O SINDICATO.</div>
     <div class="c-corpo">SEM ACORDO ASSINADO,<br>O FUNCIONAMENTO É PROIBIDO<br>E SUJEITA O EMPREGADOR<br>ÀS SANÇÕES DA CCT.</div>
@@ -702,6 +720,48 @@ function buildLoj(c){
     ${corpo}
     ${obsH}
     ${rodapeLoj(c)}`;
+}
+
+/* ── EDITAR REGRA FERIADO ── */
+function editarRegra(i){
+  const f = feriados[i];
+  const opcoes = [
+    {v:'permitido',    l:'✅ Gêneros podem trabalhar (padrão)'},
+    {v:'proibido',     l:'🚫 Proibido a todos (01/01, 01/05, 25/12)'},
+    {v:'acordo_lojas', l:'📋 Lojas só com acordo assinado'},
+    {v:'comercio_op',  l:'🏛️ Comércio livre OP/Mariana (20/11)'},
+  ];
+  // Build select options
+  const opts = opcoes.map(o=>`<option value="${o.v}" ${f.regra===o.v?'selected':''}>${o.l}</option>`).join('');
+  
+  // Create modal
+  const modal = document.createElement('div');
+  modal.id = 'modalRegra';
+  modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  modal.innerHTML = `
+    <div style="background:#162d52;border:1px solid rgba(200,168,75,.3);border-radius:12px;padding:28px;width:480px;box-shadow:0 20px 60px rgba(0,0,0,.5);">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:18px;">
+        ✏️ Alterar Regra — ${f.nome}
+      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Nova Regra</div>
+      <select id="novaRegraEdit" style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(200,168,75,.3);border-radius:7px;padding:10px 12px;color:white;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;outline:none;margin-bottom:14px;">
+        ${opts}
+      </select>
+      <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Observação (opcional)</div>
+      <textarea id="novaObsEdit" style="width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(200,168,75,.3);border-radius:7px;padding:10px 12px;color:white;font-family:'Montserrat',sans-serif;font-size:13px;min-height:70px;outline:none;resize:vertical;margin-bottom:18px;">${f.obs||''}</textarea>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button onclick="document.getElementById('modalRegra').remove()" style="padding:9px 20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:7px;color:white;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;">Cancelar</button>
+        <button onclick="salvarRegraEdit(${i})" style="padding:9px 20px;background:linear-gradient(135deg,#c8a84b,#e2c06a);border:none;border-radius:7px;color:#0d1f3c;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">💾 Salvar</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+}
+
+function salvarRegraEdit(i){
+  feriados[i].regra = document.getElementById('novaRegraEdit').value;
+  feriados[i].obs   = document.getElementById('novaObsEdit').value.trim();
+  document.getElementById('modalRegra').remove();
+  salvarFer(); renderTbl();
 }
 
 /* ── DOWNLOAD ── */
