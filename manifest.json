@@ -1,0 +1,27 @@
+{
+  "name": "Sistema de Comunicados — SINDCOMERCIÁRIOS",
+  "short_name": "SINDECI",
+  "description": "Sistema de geração de comunicados sindicais para feriados",
+  "start_url": "/sistema-sindeci/",
+  "scope": "/sistema-sindeci/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1f3c",
+  "theme_color": "#0d1f3c",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "pt-BR"
+}

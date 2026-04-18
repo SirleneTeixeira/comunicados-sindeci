@@ -2,7 +2,16 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d1f3c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SINDECI">
+<meta name="description" content="Sistema de Comunicados Sindicais — SINDCOMERCIÁRIOS Itabirito">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <title>Sistema de Comunicados — SINDCOMERCIÁRIOS</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -248,6 +257,143 @@ html,body{min-height:100%;font-family:'Montserrat',sans-serif;background:var(--n
 .c-cct-box-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;color:#0a3d6e;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
 .c-cct-box-item{font-size:11px;font-weight:600;color:#1a2a4e;display:flex;align-items:center;gap:6px;margin-bottom:3px;line-height:1.4;}
 .c-cct-box-item:last-child{margin-bottom:0;}
+
+/* ════════════════════════════════
+   MOBILE RESPONSIVE — COMPLETO
+════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* HEADER */
+  .hdr { padding: 10px 14px; gap: 10px; }
+  .hdr img { height: 32px; padding: 3px 8px; }
+  .hdr h1 { font-size: 14px; }
+  .hdr p { font-size: 9px; letter-spacing: 1px; }
+  .hdr-v { font-size: 8px; padding: 2px 8px; }
+
+  /* NAV — scroll horizontal */
+  .nav { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn { padding: 10px 14px; font-size: 10px; white-space: nowrap; flex-shrink: 0; }
+
+  /* PAGES */
+  .page { padding: 14px 12px; }
+
+  /* GRIDS — tudo vira coluna única */
+  .g2, .g3, .g4, .g5 { grid-template-columns: 1fr; gap: 10px; }
+  .entity-grid { grid-template-columns: 1fr; gap: 12px; }
+  .links-grid { grid-template-columns: 1fr; gap: 10px; }
+
+  /* SEC */
+  .sec { padding: 14px 14px; margin-bottom: 12px; }
+  .sec-title { font-size: 11px; margin-bottom: 12px; }
+
+  /* FIELDS */
+  .field label { font-size: 9px; }
+  .field input, .field select, .field textarea { font-size: 14px; padding: 10px 12px; }
+
+  /* BUTTONS */
+  .btn { font-size: 10px; padding: 9px 14px; }
+  .btn-full { padding: 14px; font-size: 13px; }
+  .btn-sm { font-size: 9px; padding: 6px 10px; }
+
+  /* TOGGLE */
+  .toggle-row { border-radius: 6px; }
+  .toggle-btn { font-size: 9px; padding: 8px 4px; }
+  .fmt-toggle { flex-direction: column; border-radius: 8px; }
+  .fmt-btn { padding: 11px; font-size: 10px; }
+
+  /* GERAR PAGE — sidebar vira top */
+  .gerar-side { width: 100%; min-width: unset; }
+  .gerar-wrap { flex-direction: column; gap: 14px; }
+  .gerar-main { min-width: unset; }
+
+  /* PREV TABS */
+  .prev-tabs { gap: 6px; }
+  .prev-tab { padding: 7px 12px; font-size: 9.5px; }
+
+  /* COMUNICADO CARD — menor no celular */
+  .comunicado { width: 100%; padding: 22px 18px 18px; border-radius: 10px; }
+  .c-tit { font-size: 14px; margin-bottom: 10px; }
+  .c-intro { font-size: 12px; }
+  .c-item { font-size: 11.5px; }
+  .c-proib-box { font-size: 12px; padding: 7px 10px; }
+  .c-alerta { font-size: 11px; padding: 9px 10px; }
+  .c-destaque { font-size: 12px; padding: 10px 12px; }
+  .c-corpo { font-size: 11px; line-height: 1.7; }
+  .c-cta { font-size: 12px; padding: 10px 12px; }
+  .c-rod { font-size: 11px; }
+  .c-rod-logo img { height: 36px; }
+  .c-rod-logo { gap: 10px; }
+  .c-rod-partes { font-size: 10.5px; }
+  .c-rod-cct { font-size: 8.5px; }
+  .mega-icon-wrap { width: 58px; height: 58px; margin-bottom: 6px; }
+  .mega-icon { font-size: 28px; }
+  .mega-label { font-size: 9.5px; padding: 2px 12px; }
+  .c-cct-box { padding: 8px 11px; }
+  .c-cct-box-title { font-size: 9.5px; }
+  .c-cct-box-item { font-size: 10px; }
+  .c-obs { font-size: 11px; }
+  .c-cct { font-size: 9px; }
+  .c-pode { font-size: 12px; padding: 8px 11px; }
+  .c-acordo { font-size: 12px; padding: 8px 11px; }
+
+  /* INSTAGRAM CARD */
+  .insta-wrap { width: 100%; height: auto; aspect-ratio: 4/5; border-radius: 12px; }
+  .insta-feriado-name { font-size: 28px; }
+  .insta-band-txt { font-size: 13px; }
+  .insta-big-icon { font-size: 42px; }
+
+  /* PREV WRAP buttons */
+  .prev-wrap { gap: 12px; }
+  .prev-wrap .btn-outline { width: 100%; justify-content: center; }
+
+  /* ENTITY CARDS */
+  .entity-hdr { padding: 12px 14px; }
+  .entity-title { font-size: 12px; }
+  .entity-body { padding: 12px 14px; gap: 9px; }
+
+  /* TABELA FERIADOS */
+  .tbl { font-size: 11.5px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl th { font-size: 8.5px; padding: 6px 8px; white-space: nowrap; }
+  .tbl td { padding: 8px 8px; }
+
+  /* LINK CARDS */
+  .link-card-body { padding: 14px 16px; }
+  .link-card-icon { font-size: 26px; margin-bottom: 8px; }
+  .link-card-title { font-size: 14px; }
+  .link-card-desc { font-size: 11.5px; }
+  .link-card-url { font-size: 9.5px; }
+  .denuncia-card { padding: 16px 18px; gap: 14px; flex-direction: column; text-align: center; }
+  .denuncia-icon { font-size: 38px; }
+  .denuncia-text h3 { font-size: 17px; }
+  .denuncia-text p { font-size: 12px; }
+
+  /* LEGEND */
+  .legend { flex-direction: column; gap: 8px; }
+
+  /* MODAL */
+  .confirm-box { width: 90vw; padding: 22px 18px; }
+  .confirm-title { font-size: 16px; }
+
+  /* TOAST */
+  .toast { bottom: 16px; right: 12px; left: 12px; font-size: 12px; }
+  .toast-restore { bottom: 16px; right: 12px; left: 12px; font-size: 11px; }
+
+  /* ALERT */
+  .alert { font-size: 11.5px; padding: 8px 12px; }
+
+  /* ACCORDION */
+  .acc-body { display: block !important; }
+}
+
+/* TABLET */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .g4, .g5 { grid-template-columns: 1fr 1fr; }
+  .entity-grid { grid-template-columns: 1fr; }
+  .gerar-side { width: 260px; min-width: 260px; }
+  .comunicado { width: 480px; }
+  .insta-wrap { width: 360px; height: 450px; }
+}
 </style>
 </head>
 <body>
@@ -1344,5 +1490,54 @@ Object.keys(savedA).forEach(eid=>{
   <span>🗑️ Feriado removido</span>
   <button class="restore-btn" onclick="restaurarFeriado()">↩️ Restaurar</button>
 </div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('✅ SW registrado:', reg.scope))
+      .catch(err => console.log('SW erro:', err));
+  });
+}
+</script>
+
+<!-- BANNER INSTALAR APP -->
+<div id="installBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:linear-gradient(90deg,#0a2d6b,#1565c0);color:#fff;padding:14px 18px;z-index:10000;display:none;align-items:center;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.4);">
+  <span style="font-size:24px;">📱</span>
+  <div style="flex:1;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Instalar como App</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:1px;">Adicione à tela inicial para acesso rápido</div>
+  </div>
+  <button id="btnInstall" style="background:linear-gradient(135deg,#c8a84b,#e2c06a);color:#0d1f3c;border:none;border-radius:8px;padding:9px 18px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;">⬇️ Instalar</button>
+  <button onclick="document.getElementById('installBanner').style.display='none'" style="background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;padding:4px 8px;border-radius:4px;">✕</button>
+</div>
+
+<script>
+let deferredPrompt;
+const banner = document.getElementById('installBanner');
+const btnInstall = document.getElementById('btnInstall');
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  banner.style.display = 'flex';
+});
+
+btnInstall.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    banner.style.display = 'none';
+    if (typeof showToast === 'function') showToast('✅ App instalado com sucesso!');
+  }
+  deferredPrompt = null;
+});
+
+window.addEventListener('appinstalled', () => {
+  banner.style.display = 'none';
+  deferredPrompt = null;
+});
+</script>
 </body>
 </html>
