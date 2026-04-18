@@ -1,4 +1,4 @@
-const CACHE = 'sindeci-v1';
+const CACHE = 'sindeci-v2';
 const ASSETS = [
   './',
   './index.html',
