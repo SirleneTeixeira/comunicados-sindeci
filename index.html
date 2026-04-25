@@ -668,20 +668,25 @@ function jurCopiarContrato(){navigator.clipboard.writeText(_jurContractText).the
 function jurImprimirContrato(){const w=window.open('','_blank');w.document.write('<html><head><title>Contrato SINDCOMERCIÁRIOS</title><style>body{font-family:serif;font-size:12pt;line-height:1.9;padding:2.5cm;white-space:pre-wrap;color:#111;}</style></head><body>'+_jurContractText+'</body></html>');w.document.close();w.print();}
 function jurCopiarRelatorio(){navigator.clipboard.writeText(_jurReportText).then(()=>{if(typeof showToast==='function')showToast('✅ Relatório copiado!');});}
 function jurSalvarChave(){
-  const key=document.getElementById('jur-apikey').value.trim();
+  const input=document.getElementById('jur-apikey');
+  const key=input.value.trim();
   const st=document.getElementById('jur-api-status');
-  if(!key.startsWith('sk-ant-')){st.innerHTML='<div class="alert a-red" style="margin:0;font-size:11px;">⚠️ Chave inválida. Deve começar com sk-ant-</div>';return;}
+  if(!key||key.includes('•')){st.innerHTML='<div class="alert a-red" style="margin:0;font-size:11px;">⚠️ Cole a chave completa antes de salvar.</div>';return;}
+  if(key.length<20){st.innerHTML='<div class="alert a-red" style="margin:0;font-size:11px;">⚠️ Chave muito curta. Verifique e cole novamente.</div>';return;}
   localStorage.setItem('jur_apikey',key);
-  document.getElementById('jur-apikey').value='sk-ant-••••••••••••••';
-  st.innerHTML='<div class="alert a-green" style="margin:0;font-size:11px;">✅ Chave salva com sucesso!</div>';
-  setTimeout(()=>{st.innerHTML='';},3000);
+  input.value='';
+  input.placeholder='✅ Chave salva! Cole novamente para trocar.';
+  st.innerHTML='<div class="alert a-green" style="margin:0;font-size:11px;">✅ Chave salva! Pode usar o módulo agora.</div>';
 }
 /* INIT */
 renderTbl();
 const savedA=JSON.parse(localStorage.getItem('sind4_acordos')||'{}');
 Object.keys(savedA).forEach(eid=>{Object.keys(savedA[eid]).forEach(f=>{const el=document.getElementById(`${eid}_${f}`);if(el)el.value=savedA[eid][f];});});
-// Mostrar chave mascarada se já salva
-if(localStorage.getItem('jur_apikey')){document.getElementById('jur-apikey').value='sk-ant-••••••••••••••';document.getElementById('jur-api-status').innerHTML='<div class="alert a-green" style="margin:0;font-size:11px;">✅ Chave configurada e pronta para uso.</div>';}
+// Mostrar status da chave
+if(localStorage.getItem('jur_apikey')){
+  document.getElementById('jur-apikey').placeholder='✅ Chave salva! Cole novamente para trocar.';
+  document.getElementById('jur-api-status').innerHTML='<div class="alert a-green" style="margin:0;font-size:11px;">✅ Chave configurada e pronta para uso.</div>';
+}
 
 </script>
 <script>
